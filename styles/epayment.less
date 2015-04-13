@@ -1,9 +1,10 @@
-@pageBackColor: LightBlue;
+@pageBackColor: LightBlue; //AD D8 E6
 @pageFontColor: DarkSlateBlue;
 @pageFooterBackColor: White;//Silver
 @pageFooterFontColor: #666;
 @pageLoginInfoBackColor: PowderBlue;
 @navSelectedBackColor: SkyBlue;
+@buttonClickedColor:#6aa4ab;
 
 html, body {
 	margin: 0;
@@ -48,6 +49,16 @@ html, body {
 
     input[type="submit"]& {
         margin-top: 35px;
+        Background-color:@pageLoginInfoBackColor;
+	    color: @pageFontColor;
+        border:0px;
+        &:active {
+            Background-color: @buttonClickedColor;
+            box-shadow: none;
+        }
+        &:hover {
+            cursor:pointer;
+        }
     }
 }
 .sectionHeader
@@ -102,8 +113,16 @@ input[type="submit"] {
 	box-shadow: 3px 3px 5px 2px #aaa;
 	background-color: inherit;
 	margin-top: 0px;
-	Background-color: @pageBackColor;
+	Background-color:@pageLoginInfoBackColor;
 	color: @pageFontColor;
+    border:0px;
+    &:active {
+        Background-color: @buttonClickedColor;
+        box-shadow: none;
+    }
+    &:hover {
+        cursor:pointer;
+    }
 }
 input[type="file"] 
 {
@@ -117,7 +136,11 @@ select
 {
     display: block;
     color: red;
-    margin: 0px;
+    margin: 0px 0px 0px 0px;
+}
+.hide
+{
+    display:none;
 }
 #loginInfo {
 	font-size: small;

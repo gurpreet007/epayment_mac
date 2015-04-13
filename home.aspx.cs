@@ -10,21 +10,16 @@ public partial class index : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-         if (Session["userID"] == null ||
-           Session["empID"] == null ||
-           Session["userID"].ToString() == string.Empty ||
-           Session["empID"].ToString() == string.Empty ||
-           Session["empID"].ToString().Length != 6)
+        if (!common.isValidSession(Page.Session))
         {
             Response.Redirect("login.aspx");
         }
 
         if (!IsPostBack)
         {
-            common.FillInfo(Session["userID"].ToString(), Session["empID"].ToString(),
-                Session["location"].ToString(), Session["name"].ToString(), lblLoggedInAs);
-            valEmpID.Value = Session["empID"].ToString();
-            valUserID.Value = Session["userID"].ToString();
+            common.FillInfo(Page.Session, lblLoggedInAs);
+            valEmpID.Value = Session[common.strEmpID].ToString();
+            valUserID.Value = Session[common.strUserID].ToString();
         }
     }
     [System.Web.Services.WebMethod]

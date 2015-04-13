@@ -43,10 +43,10 @@ public partial class login : System.Web.UI.Page
             sql = string.Format("select pshr.get_fullname({0}) from dual", empID);
             name = OraDBConnection.GetScalar(sql);
 
-            Session["userID"] = userID;
-            Session["empID"] = empID;
-            Session["location"] = location;
-            Session["name"] = name;
+            Session[common.strUserID] = userID;
+            Session[common.strEmpID] = empID;
+            Session[common.strLocation] = location;
+            Session[common.strName] = name;
 
             Response.Redirect("home.aspx");
         }

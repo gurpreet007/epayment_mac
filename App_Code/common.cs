@@ -9,14 +9,21 @@ using System.Web.UI.WebControls;
 
 public class common
 {
-	private common()
-	{
-	}
-    public static string AdminName = "ADMIN";
-    public static void DownloadXLS(string sql, string filename, Page pg)
+    public const string strAdminName = "ADMIN";
+    public const string strUserID = "userID";
+    public const string strEmpID = "empID";
+    public const string strLocation = "location";
+    public const string strName = "name";
+    public const string strSAP = "sap";
+    public const string strNonSAP = "nonsap";
+    public static bool DownloadXLS(string sql, string filename, Page pg)
     {
         System.Data.DataSet ds = OraDBConnection.GetData(sql);
 
+        if (ds.Tables[0].Rows.Count == 0)
+        {
+            return false;
+        }
         DataGrid dg = new DataGrid();
         dg.DataSource = ds;
         dg.DataBind();
@@ -30,9 +37,23 @@ public class common
         pg.Response.Write(stringwrite.ToString());
         pg.Response.End();
         dg.Dispose();
+        return true;
     }
-    public static void FillInfo(string userID, string empID, string location, string name, Label lblLoggedIn)
+    public static void FillInfo(System.Web.SessionState.HttpSessionState mySession, Label lblLoggedIn)
     {
-        lblLoggedIn.Text = string.Format("Loc: {0} ({1}),  User: {2} ({3})", location, userID, name, empID);
-    }   
+        lblLoggedIn.Text = string.Format("Loc: {0} ({1}),  User: {2} ({3})", 
+            mySession[strLocation], mySession[strUserID], mySession[strName], mySession[strEmpID]);
+    }
+    public static bool isValidSession(System.Web.SessionState.HttpSessionState mySession)
+    {
+        if (mySession[strUserID] == null ||
+           mySession[strEmpID] == null ||
+           mySession[strUserID].ToString() == string.Empty ||
+           mySession[strEmpID].ToString() == string.Empty ||
+           mySession[strEmpID].ToString().Length != 6)
+        {
+            return false;
+        }
+        return true;
+    }
 }

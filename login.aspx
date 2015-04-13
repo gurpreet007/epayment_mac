@@ -4,7 +4,7 @@
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8">
-	<title>e-Payment</title>
+    <title>e-Payment</title>
     <!--[if lt IE 9]>
         <script src="scripts/html5shiv.min.js"></script>        
    <![endif]-->
@@ -13,18 +13,18 @@
 </head>
 <body>
     <h3 class="login">
-	    <img class="login" alt="PSPCL Logo" src="resources/pspcl.gif"/>
-	    Punjab State Power Corporation Limited
-	</h3>
+        <img class="login" alt="PSPCL Logo" src="resources/pspcl.gif"/>
+        Punjab State Power Corporation Limited
+    </h3>
     <form runat="server" class="login">
-		<header class="login">e-Payment System</header>
+        <header class="login">e-Payment System</header>
         <input type="text" id="txtUserID" placeholder="Location Code" runat="server" 
                         tabindex="1" class="login" maxlength="64" required/>
         <input type="password" id="txtUserPass" placeholder="Password" 
                         runat="server" tabindex="2" class="login" maxlength="64" required/><br><br>
-		<input type="text" id="txtEmpID" placeholder="Emp ID" runat="server" 
+        <input type="text" id="txtEmpID" placeholder="Emp ID" runat="server" 
                         tabindex="3" class="login" maxlength="64" required/>
-		<input type="password" id="txtHRPass" placeholder="Password" runat="server" 
+        <input type="password" id="txtHRPass" placeholder="Password" runat="server" 
                         tabindex="4" class="login" maxlength="64" required/><br/>
         <asp:Button ID="btnLogin" runat="server" Text="Login" onclick="btnLogin_Click" 
                         TabIndex="5" class="login"/><br/>

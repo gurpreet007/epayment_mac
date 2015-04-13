@@ -192,42 +192,26 @@ public partial class upload : System.Web.UI.Page
     }
     protected void btnUpload_Click(object sender, EventArgs e)
     {
-        if(hidBillType.Value == "0") {
-            return;
-        }
-        string billClass = hidBillType.Value.Split('-')[0];
-        string billType = hidBillType.Value.Split('-')[1];
-        if(billClass==common.strSAP){
-            
-        }
-        else if(billClass == common.strNonSAP)
+        switch (drpBillType.SelectedValue)
         {
-            switch (billType)
-            {
-                case "LS":
-                    Upload(new Categs("LS", 0, 1, 2, "ONLINEBILL.LS", '"', 111));
-                    break;
-                case "SP":
-                    Upload(new Categs("SP", 0, 18, 68, "ONLINEBILL.SP", '"', 69));
-                    break;
-                case "MS":
-                    Upload(new Categs("MS", 0, 28, 81, "ONLINEBILL.MS", '"', 92));
-                    break;
-                case "DSBELOW10KW":
-                    Upload(new Categs("DSBELOW10KW", 0, 18, 55, "ONLINEBILL.DSBELOW10KW", '"', 72));
-                    break;
-                case "DSABOVE10KW":
-                    Upload(new Categs("DSABOVE10KW", 0, 18, 55, "ONLINEBILL.DSABOVE10KW", '"', 76));
-                    break;
-                default:
-                    lblMessage.Text = "Select a valid Bill Type "+ hidBillType.Value;
-                    return;
-            }
-        }
-        else
-        {
-            lblMessage.Text = "Some error occurred. Try after sometime.";
-            return;
+            case "LS":
+                Upload(new Categs("LS", 0, 1, 2, "ONLINEBILL.LS", '"', 111));
+                break;
+            case "SP":
+                Upload(new Categs("SP", 0, 18, 68, "ONLINEBILL.SP", '"', 69));
+                break;
+            case "MS":
+                Upload(new Categs("MS", 0, 28, 81, "ONLINEBILL.MS", '"', 92));
+                break;
+            case "DSBELOW10KW":
+                Upload(new Categs("DSBELOW10KW", 0, 18, 55, "ONLINEBILL.DSBELOW10KW", '"', 72));
+                break;
+            case "DSABOVE10KW":
+                Upload(new Categs("DSABOVE10KW", 0, 18, 55, "ONLINEBILL.DSABOVE10KW", '"', 76));
+                break;
+            default:
+                lblMessage.Text = "Select a valid Bill Type";
+                return;
         }
     }
     protected void btnExport_Click(object sender, EventArgs e)
@@ -239,5 +223,11 @@ public partial class upload : System.Web.UI.Page
         strFileName = "not_entered_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
 
         common.DownloadXLS(sql, strFileName, this);
+    }
+    [System.Web.Services.WebMethod]
+    public static string GetSomething(string drpVal)
+    {
+        string sql = "select count(*) from onlinebill." + drpVal;
+        return "aaa";
     }
 }

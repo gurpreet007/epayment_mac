@@ -9,26 +9,22 @@ public partial class download : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["userID"] == null ||
-           Session["empID"] == null ||
-           Session["userID"].ToString() == string.Empty ||
-           Session["empID"].ToString() == string.Empty ||
-           Session["empID"].ToString().Length != 6)
+        if (!common.isValidSession(Page.Session))
         {
             Response.Redirect("login.aspx");
         }
 
         if (!IsPostBack)
         {
-            common.FillInfo(Session["userID"].ToString(), Session["empID"].ToString(),
-                Session["location"].ToString(), Session["name"].ToString(), lblLoggedInAs);
+            common.FillInfo(Page.Session, lblLoggedInAs);
 
-            if (Session["userID"].ToString() != common.AdminName)
+            if (Session[common.strUserID].ToString() != common.strAdminName)
             {
                 btnEmpty.Visible = false;
             }
         }
     }
+
     [System.Web.Services.WebMethod]
     public static string GetSomething(string drpVal)
     {

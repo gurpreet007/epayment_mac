@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="upload.aspx.cs" Inherits="upload" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="upload_test.aspx.cs" Inherits="upload" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +11,7 @@
 	<%--<link rel="stylesheet" href="styles/epayment.css">--%>
     <link rel="stylesheet/less" href="styles/epayment.less" type="text/css" />
     <script src="scripts/less.min.js"></script>
+    <link href="http://hayageek.github.io/jQuery-Upload-File/uploadfile.min.css" rel="stylesheet">
 </head>
 <body> 
     <header class="page" id="pageHeader">	</header>
@@ -18,7 +19,7 @@
         <asp:Label ID="lblLoggedInAs" runat="server"></asp:Label> 
 	</div>
     <nav id="pageNav"></nav>
-    <header class="sectionHeader">Upload Billing Data</header>
+    <header class="sectionHeader">Upload File Test</header>
     <form runat="server" class="tableWrapper">
         <div class="tableRow">
             <p> <label for="drpBillType">Bill Type</label></p>
@@ -57,23 +58,34 @@
                 <asp:HiddenField ID="hidSID" runat="server" />
             </p>
         </div>
+        <div class="tableRow">
+            <p></p>
+            <p>
+                <div id="fileuploader">Upload</div>
+            </p>
+        </div>
     </form>
     <footer id="pageFooter" class="pageFooter">	</footer>
     <script src="scripts/jquery-2.1.3.min.js"></script>
+    <script src="http://hayageek.github.io/jQuery-Upload-File/jquery.uploadfile.min.js"></script>
     <script>
         $(function () {
             $("#pageHeader").load("resources/snippets.html #snipPageHeader")
             $("#pageNav").load("resources/snippets.html #snipPageNav", function () {
                 $("#pageNav li").removeClass("selected");
-                $("#pageNav #nvUpload").addClass("selected");
+                $("#pageNav #nvUploadTest").addClass("selected");
                 $("#pageNav").hover(
                     function () { $("#pageNav li").removeClass("selected"); },
-                    function () { $("#pageNav #nvUpload").addClass("selected"); }
+                    function () { $("#pageNav #nvUploadTest").addClass("selected"); }
                 );
             });
             $("#pageFooter").load("resources/snippets.html #snipPageFooter");
             $("#FileUpload1").click(function () {
                 $("#lblMessage").text("");
+            });
+            $("#fileuploader").uploadFile({
+                url: "download.aspx/GetSomething",
+                fileName: "myfile"
             });
         });
     </script>

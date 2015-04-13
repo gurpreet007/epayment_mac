@@ -4,7 +4,7 @@
 <html>
 <head runat="server">
     <meta charset="utf-8">
-	<title>e-Payment</title>
+    <title>e-Payment</title>
     <!--[if lt IE 9]>
         <script src="scripts/html5shiv.min.js"></script>        
    <![endif]-->
@@ -13,9 +13,9 @@
 </head>
 <body> 
     <header class="page" id="pageHeader">	</header>
-	<div id="loginInfo">
+    <div id="loginInfo">
         <asp:Label ID="lblLoggedInAs" runat="server"></asp:Label> 
-	</div>
+    </div>
     <nav id="pageNav"></nav>
     <header class="sectionHeader">Download Billing Data</header>
     <form runat="server" class="tableWrapper">

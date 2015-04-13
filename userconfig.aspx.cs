@@ -10,11 +10,7 @@ public partial class userconfig : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["userID"] == null ||
-            Session["empID"] == null ||
-            Session["userID"].ToString() == string.Empty ||
-            Session["empID"].ToString() == string.Empty ||
-            Session["empID"].ToString().Length != 6)
+        if (!common.isValidSession(Page.Session))
         {
             Response.Redirect("login.aspx");
         }
@@ -22,11 +18,7 @@ public partial class userconfig : System.Web.UI.Page
         if (!IsPostBack)
         {
             fillActions();
-            //common.FillInfo(Session["userID"].ToString(), Session["empID"].ToString(),
-            //    Session["location"].ToString(), Session["name"].ToString(),
-            //    lblLocation, lblName, lblLoggedInAs);
-            common.FillInfo(Session["userID"].ToString(), Session["empID"].ToString(),
-                Session["location"].ToString(), Session["name"].ToString(), lblLoggedInAs);
+            common.FillInfo(Page.Session, lblLoggedInAs);
         }
     }
     protected void lnkLogout_Click(object sender, EventArgs e)
@@ -167,7 +159,7 @@ public partial class userconfig : System.Web.UI.Page
     private void fillUsers(DropDownList drpUsers, bool fillOnlyActive = true, bool addAdmin = false)
     {
         DataSet ds;
-        string strAddAdmin = addAdmin ? "" : string.Format("and upper(userid) <> '{0}'", common.AdminName);
+        string strAddAdmin = addAdmin ? "" : string.Format("and upper(userid) <> '{0}'", common.strAdminName);
         string strFillOnlyActive = fillOnlyActive ? "and active=1" : "";
         string sql = string.Format("select userid||' (' || offcname || ')' as usern,"+
             " userid from onlinebill.users where 1=1 {0} {1} order by userid", strAddAdmin, strFillOnlyActive);
@@ -190,7 +182,7 @@ public partial class userconfig : System.Web.UI.Page
         {
             return;
         }
-        if (userID == common.AdminName)
+        if (userID == common.strAdminName)
         {
             panActivate_lblActive.Text = "Error: Cannot deactive admin.";
             return;
@@ -210,7 +202,7 @@ public partial class userconfig : System.Web.UI.Page
     }
     private void fillActions()
     {
-        if (Session["userID"].ToString() != common.AdminName)
+        if (Session["userID"].ToString() != common.strAdminName)
         {
             drpActions.Items.Clear();
             drpActions.Items.Add(new ListItem("Select Action", "0"));
