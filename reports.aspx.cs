@@ -117,10 +117,15 @@ public partial class reports : System.Web.UI.Page
         if(billType != "ALL") {
             sqlBillType = string.Format("and categ = '{0}'",billType);
         }
-        sql = string.Format("select userid, categ as category, empid, " +
+        //sql = string.Format("select userid, categ as category, empid, " +
+        //         "insrec as Rec_Inserted, du5prec as Rec_Duplicate, " +
+        //         "to_char(dated,'DD-MON-YYYY HH24:MI:SS') as dated from onlinebill.userrec " +
+        //         "where 1=1 {0} {1} and dated between '{2}' and '{3}' order by dated desc", 
+        //         sqlUser, sqlBillType, sDate, eDate);
+        sql = string.Format("select userid, categ as category, " +
                  "insrec as Rec_Inserted, duprec as Rec_Duplicate, " +
                  "to_char(dated,'DD-MON-YYYY HH24:MI:SS') as dated from onlinebill.userrec " +
-                 "where 1=1 {0} {1} and dated between '{2}' and '{3}' order by dated desc", 
+                 "where 1=1 {0} {1} and trunc(dated) between '{2}' and '{3}' order by dated desc",
                  sqlUser, sqlBillType, sDate, eDate);
         xlReturn = common.DownloadXLS(sql, "activity.xls", this);
 

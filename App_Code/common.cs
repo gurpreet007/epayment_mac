@@ -41,16 +41,19 @@ public class common
     }
     public static void FillInfo(System.Web.SessionState.HttpSessionState mySession, Label lblLoggedIn)
     {
-        lblLoggedIn.Text = string.Format("Loc: {0} ({1}),  User: {2} ({3})", 
-            mySession[strLocation], mySession[strUserID], mySession[strName], mySession[strEmpID]);
+        //lblLoggedIn.Text = string.Format("Loc: {0} ({1}),  User: {2} ({3})", 
+        //    mySession[strLocation], mySession[strUserID], mySession[strName], mySession[strEmpID]);
+        lblLoggedIn.Text = string.Format("Loc: {0} ({1})", mySession[strLocation], mySession[strUserID]);
     }
     public static bool isValidSession(System.Web.SessionState.HttpSessionState mySession)
     {
+        //if (mySession[strUserID] == null ||
+        //   mySession[strEmpID] == null ||
+        //   mySession[strUserID].ToString() == string.Empty ||
+        //   mySession[strEmpID].ToString() == string.Empty ||
+        //   mySession[strEmpID].ToString().Length != 6)
         if (mySession[strUserID] == null ||
-           mySession[strEmpID] == null ||
-           mySession[strUserID].ToString() == string.Empty ||
-           mySession[strEmpID].ToString() == string.Empty ||
-           mySession[strEmpID].ToString().Length != 6)
+           mySession[strUserID].ToString() == string.Empty)
         {
             return false;
         }

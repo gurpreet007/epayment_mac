@@ -18,7 +18,7 @@ public partial class index : System.Web.UI.Page
         if (!IsPostBack)
         {
             common.FillInfo(Page.Session, lblLoggedInAs);
-            valEmpID.Value = Session[common.strEmpID].ToString();
+            //valEmpID.Value = Session[common.strEmpID].ToString();
             valUserID.Value = Session[common.strUserID].ToString();
         }
     }
@@ -52,20 +52,33 @@ public partial class index : System.Web.UI.Page
         string[] arrCounts = new string[5];
         System.Data.DataSet ds;
 
-        string sql = string.Format("select"+
-            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
-            "from onlinebill.ls where userid='{0}' and empid ='{1}') lsDt," +
-            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
-            "from onlinebill.ms where userid='{0}' and empid ='{1}') msDt," +
-            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
-            "from onlinebill.sp where userid='{0}' and empid ='{1}') spDt," +
-            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
-            "from onlinebill.dsabove10kw where userid='{0}' and empid ='{1}') dsaDt," +
-            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
-            "from onlinebill.dsbelow10kw where userid='{0}' and empid ='{1}') dsbDt " +
-            "from dual", userID,empID
+        //string sql = string.Format("select"+
+        //    "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
+        //    "from onlinebill.ls where userid='{0}' and empid ='{1}') lsDt," +
+        //    "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
+        //    "from onlinebill.ms where userid='{0}' and empid ='{1}') msDt," +
+        //    "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
+        //    "from onlinebill.sp where userid='{0}' and empid ='{1}') spDt," +
+        //    "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
+        //    "from onlinebill.dsabove10kw where userid='{0}' and empid ='{1}') dsaDt," +
+        //    "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') "+
+        //    "from onlinebill.dsbelow10kw where userid='{0}' and empid ='{1}') dsbDt " +
+        //    "from dual", userID,empID
+        //    );
+
+        string sql = string.Format("select" +
+            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') " +
+            "from onlinebill.ls where userid='{0}') lsDt," +
+            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') " +
+            "from onlinebill.ms where userid='{0}') msDt," +
+            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') " +
+            "from onlinebill.sp where userid='{0}') spDt," +
+            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') " +
+            "from onlinebill.dsabove10kw where userid='{0}') dsaDt," +
+            "(select nvl(to_char(max(dtupload),'DD-MON-YYYY HH24:MI:SS'),'Never') " +
+            "from onlinebill.dsbelow10kw where userid='{0}') dsbDt " +
+            "from dual", userID, empID
             );
-        
         ds = OraDBConnection.GetData(sql);
         arrCounts[0] = ds.Tables[0].Rows[0]["lsDt"].ToString();
         arrCounts[1] = ds.Tables[0].Rows[0]["msDt"].ToString();

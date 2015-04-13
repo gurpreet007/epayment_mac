@@ -15,38 +15,39 @@ public partial class login : System.Web.UI.Page
     {
         string userID = txtUserID.Value.Replace("'","").ToUpper();
         string userPass = txtUserPass.Value.Replace("'", "");
-        string empID = txtEmpID.Value.Replace("'", "");
-        string hrPass = txtHRPass.Value.Replace("'", "");
+        //string empID = txtEmpID.Value.Replace("'", "");
+        //string hrPass = txtHRPass.Value.Replace("'", "");
         string sql = string.Empty;
         bool appLoginOK = false;
-        bool hrLoginOK = false;
+        //bool hrLoginOK = false;
 
         Session.Clear();
 
         sql = string.Format("select count(*) from onlinebill.users where upper(userid) = upper('{0}') and pass = '{1}' and active = 1", userID, userPass);
         appLoginOK = OraDBConnection.GetScalar(sql) == "1";
 
+        //if (appLoginOK)
+        //{
+        //    sql = string.Format("select count(*) from pshr.netlogin where upper(eid) = upper('{0}') and pwd='{1}'", empID, hrPass);
+        //    hrLoginOK = OraDBConnection.GetScalar(sql) == "1";
+        //}
+
+        //if (appLoginOK && hrLoginOK)
         if (appLoginOK)
         {
-            sql = string.Format("select count(*) from pshr.netlogin where upper(eid) = upper('{0}') and pwd='{1}'", empID, hrPass);
-            hrLoginOK = OraDBConnection.GetScalar(sql) == "1";
-        }
-
-        if (appLoginOK && hrLoginOK)
-        {
             string location = string.Empty;
-            string name = string.Empty;
+            //string name = string.Empty;
 
             sql = string.Format("select offcname from onlinebill.users where upper(userid) = upper('{0}')", userID);
             location = OraDBConnection.GetScalar(sql);
 
-            sql = string.Format("select pshr.get_fullname({0}) from dual", empID);
-            name = OraDBConnection.GetScalar(sql);
+            //sql = string.Format("select pshr.get_fullname({0}) from dual", empID);
+            //name = OraDBConnection.GetScalar(sql);
 
             Session[common.strUserID] = userID;
-            Session[common.strEmpID] = empID;
+            //Session[common.strEmpID] = empID;
             Session[common.strLocation] = location;
-            Session[common.strName] = name;
+            //Session[common.strName] = name;
 
             Response.Redirect("home.aspx");
         }

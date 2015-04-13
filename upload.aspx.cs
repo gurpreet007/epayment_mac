@@ -42,7 +42,7 @@ public partial class upload : System.Web.UI.Page
         int oracle_err = 0;
         int start = 0;
         string userID = Session["userID"].ToString();
-        string empID = Session["empID"].ToString();
+        //string empID = Session["empID"].ToString();
         string dtUpload = DateTime.Now.ToString(dtFmtDotNet);
         string strExtension = string.Empty;
 
@@ -112,7 +112,8 @@ public partial class upload : System.Web.UI.Page
             }
 
             //add userID, empID and date_upload at last, we already have comma and space at the end of string
-            sbsql.Append(string.Format("'{0}', '{1}', to_date('{2}','{3}'))", userID, empID, dtUpload, dtFmtOracle));
+            //sbsql.Append(string.Format("'{0}', '{1}', to_date('{2}','{3}'))", userID, empID, dtUpload, dtFmtOracle));
+            sbsql.Append(string.Format("'{0}', '{1}', to_date('{2}','{3}'))", userID, '0', dtUpload, dtFmtOracle));
 
             //insert into oracle 
             //Composite Primary Key: ACCOUNTNO, BILLCYCLE, BILLYEAR
@@ -162,12 +163,15 @@ public partial class upload : System.Web.UI.Page
     void InsertUserRec(int numInsRec, int numDupRec, int numErrRec, string dated, string categName)
     {
         string userID = Session["userID"].ToString();
-        string empID = Session["empID"].ToString();
+        //string empID = Session["empID"].ToString();
         string sql = string.Empty;
 
+        //sql = string.Format("insert into onlinebill.userrec (userid, empid, insrec, duprec, errrec, dated, categ) " +
+        //        "values('{0}', '{1}', '{2}', '{3}', '{4}',to_date('{5}', '{6}'), '{7}')",
+        //        userID, empID, numInsRec, numDupRec, numErrRec, dated, dtFmtOracle, categName);
         sql = string.Format("insert into onlinebill.userrec (userid, empid, insrec, duprec, errrec, dated, categ) " +
                 "values('{0}', '{1}', '{2}', '{3}', '{4}',to_date('{5}', '{6}'), '{7}')",
-                userID, empID, numInsRec, numDupRec, numErrRec, dated, dtFmtOracle, categName);
+                userID, '0', numInsRec, numDupRec, numErrRec, dated, dtFmtOracle, categName);
         try
         {
             OraDBConnection.ExecQry(sql);

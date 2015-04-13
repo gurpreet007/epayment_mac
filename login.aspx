@@ -19,13 +19,13 @@
     <form runat="server" class="login">
         <header class="login">e-Payment System</header>
         <input type="text" id="txtUserID" placeholder="Location Code" runat="server" 
-                        tabindex="1" class="login" maxlength="64" required/>
+                        tabindex="1" class="login" maxlength="64" required/><br><br>
         <input type="password" id="txtUserPass" placeholder="Password" 
-                        runat="server" tabindex="2" class="login" maxlength="64" required/><br><br>
-        <input type="text" id="txtEmpID" placeholder="Emp ID" runat="server" 
+                        runat="server" tabindex="2" class="login" maxlength="64" required/><br>
+        <%--<input type="text" id="txtEmpID" placeholder="Emp ID" runat="server" 
                         tabindex="3" class="login" maxlength="64" required/>
         <input type="password" id="txtHRPass" placeholder="Password" runat="server" 
-                        tabindex="4" class="login" maxlength="64" required/><br/>
+                        tabindex="4" class="login" maxlength="64" required/><br/>--%>
         <asp:Button ID="btnLogin" runat="server" Text="Login" onclick="btnLogin_Click" 
                         TabIndex="5" class="login"/><br/>
         <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
